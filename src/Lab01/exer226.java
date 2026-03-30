@@ -1,4 +1,7 @@
+package Lab01;
+
 import javax.swing.JOptionPane;
+
 public class exer226 {
 	public static void main(String[] args) {
 
