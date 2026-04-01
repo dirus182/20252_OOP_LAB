@@ -1,6 +1,8 @@
+package Lab01;
 
 import java.util.Scanner;
-public class Exercise63 {
+
+public class exer63 {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("nhap n: ");
