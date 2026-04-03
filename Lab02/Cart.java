@@ -1,7 +1,5 @@
 package AimsProject;
 
-import AimsProject.DigitalVideoDisc;
-
 public class Cart {
 	public static final int MAX_NUMBERS_ORDERED = 20;
 	private int qtyOrdered = 0;
@@ -42,4 +40,17 @@ public class Cart {
 		}
 		return total;
 	}
+
+	public static int getMaxNumbersOrdered() {
+		return MAX_NUMBERS_ORDERED;
+	}
+
+	public int getQtyOrdered() {
+		return qtyOrdered;
+	}
+
+	public DigitalVideoDisc[] getItemsOrdered() {
+		return itemsOrdered;
+	}
+
 }
