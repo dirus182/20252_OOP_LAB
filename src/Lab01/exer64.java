@@ -31,8 +31,18 @@ public class exer64 {
 				num = tempNum;
 			}
 		} else {
-			num = monthMap.entrySet().stream().filter(entry -> monthoutput.startsWith(entry.getKey()))
-					.map(Map.Entry::getValue).findFirst().orElse(-1);
+			/*
+			 * num = monthMap.entrySet().stream().filter(entry ->
+			 * monthoutput.startsWith(entry.getKey()))
+			 * .map(Map.Entry::getValue).findFirst().orElse(-1);
+			 */
+			for (Map.Entry<String, Integer> entry : monthMap.entrySet()) {
+				if (monthoutput.startsWith(entry.getKey())) {
+//lay value(tuong duong map)
+					num = entry.getValue();
+					break;
+				}
+			}
 		}
 		if (num == -1) {
 			System.out.println("Error");
@@ -74,7 +84,7 @@ public class exer64 {
 			days = 0;
 			break;
 		}
-		System.out.println("there are " + days + " of " + num + "th of" + year);
+		System.out.println("there are " + days + " of " + num + "th of " + year);
 		scanner.close();
 	}
 
