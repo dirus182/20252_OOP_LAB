@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class exer64 {
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Input month: ");
