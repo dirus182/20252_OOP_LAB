@@ -87,6 +87,5 @@ public class exer226 {
 				JOptionPane.showMessageDialog(null, "pt bac 2 vo nghiem");
 			break;
 		}
-		System.exit(0);
 	}
 }

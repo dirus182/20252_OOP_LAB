@@ -1,4 +1,4 @@
-package Lab02;
+package AimsProject;
 
 public class DigitalVideoDisc {
 	private String title;
@@ -8,8 +8,9 @@ public class DigitalVideoDisc {
 	private float cost;
 
 	public DigitalVideoDisc() {
-	}
 
+	
+	}
 	public DigitalVideoDisc(String title) {
 		this.title = title;
 	}

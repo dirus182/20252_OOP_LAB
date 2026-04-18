@@ -2,7 +2,7 @@ package Lab01;
 
 import javax.swing.JOptionPane;
 
-public class exer644 {
+public class Exercise64 {
 	public static void main(String args[]) {
 		System.out.println("Hello world");
 		String strMonth, strYear;

@@ -1,4 +1,4 @@
-package Lab02;
+package AimsProject;
 
 import AimsProject.Cart;
 import AimsProject.DigitalVideoDisc;
