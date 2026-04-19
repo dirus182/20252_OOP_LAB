@@ -25,4 +25,6 @@ Mẹo trung gian: Thay vì truyền bản sao địa chỉ của viên kẹo (kh
 
 Hành động trên Heap: Nhờ cái "bản sao địa chỉ hộp" đó, ta tìm được đến đúng vị trí của cái hộp thật trên bộ nhớ Heap. Tại đây, ta không tráo hai cái hộp, mà ta tráo nội dung bên trong cái hộp đó.
 
+Chốt lại, JAVA luôn truyền pass-by-value
+
 

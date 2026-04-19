@@ -25,3 +25,4 @@ public class ConcatenationInLoops {
 		System.out.println("Time with StringBuilder: " + (System.currentTimeMillis() - start) + "ms");
 	}
 }
+/////////////////
