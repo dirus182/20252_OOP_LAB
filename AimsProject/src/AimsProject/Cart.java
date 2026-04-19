@@ -14,7 +14,6 @@ public class Cart {
 		}
 	}
 
-
 	public void addDigitalVideoDisc(DigitalVideoDisc[] dvdList) {
 		for (DigitalVideoDisc disc : dvdList) {
 			if (qtyOrdered < MAX_NUMBERS_ORDERED) {
@@ -23,6 +22,9 @@ public class Cart {
 				System.out.println("The disc" + disc.getTitle() + "has been added");
 			} else {
 				System.out.print("The cart is almost full. cannot add : " + disc.getTitle());
+			}
+		}
+	}
 
 	public void print() {
 		System.out.println("***********************CART***********************");
@@ -47,11 +49,6 @@ public class Cart {
 			}
 		}
 	}
-
-	public void addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
-		// Tận dụng lại phương thức đã viết để tránh lặp code
-		addDigitalVideoDisc(dvd1);
-		addDigitalVideoDisc(dvd2);
 
 	public void searchByTitle(String title) {
 		boolean found = false;
@@ -106,5 +103,4 @@ public class Cart {
 	public DigitalVideoDisc[] getItemsOrdered() {
 		return itemsOrdered;
 	}
-
 }
