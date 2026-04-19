@@ -73,7 +73,6 @@ public class DigitalVideoDisc {
 
 	public int getId() {
 		return id;
-
 	}
 
 	public void setId(int id) {
