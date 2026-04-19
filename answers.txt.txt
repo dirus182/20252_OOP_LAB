@@ -1,0 +1,1 @@
+Java luôn truyền theo giá trị (Pass By Value)
