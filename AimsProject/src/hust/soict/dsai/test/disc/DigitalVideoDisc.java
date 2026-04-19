@@ -1,4 +1,4 @@
-package AimsProject;
+package hust.soict.dsai.test.disc;
 
 public class DigitalVideoDisc {
 	private String title;
