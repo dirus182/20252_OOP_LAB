@@ -1,1 +1,26 @@
-Java luôn truyền theo giá trị (Pass By Value)
+1. Java là ngôn ngữ Pass-by-Value hay Pass-by-Reference
+Trả lời: Java là ngôn ngữ lập trình Pass-by-Value (Truyền tham trị).
+
+Đối với các kiểu dữ liệu nguyên thủy (primitive), Java truyền bản sao giá trị của biến.
+
+Đối với các đối tượng (Object), Java truyền bản sao của tham chiếu (copy of the reference/memory address).
+
+2. Tại sao sau khi gọi swap(jungleDVD, cinderellaDVD), tiêu đề của hai đối tượng vẫn giữ nguyên?
+Giải thích: * Khi hàm swap(o1, o2) được gọi, Java tạo ra hai biến cục bộ o1 và o2. Hai biến này nhận bản sao địa chỉ vùng nhớ từ jungleDVD và cinderellaDVD.
+
+Bên trong hàm, lệnh tráo đổi tmp = o1; o1 = o2; o2 = tmp; chỉ làm thay đổi địa chỉ mà hai biến cục bộ o1 và o2 đang nắm giữ.
+
+Hành động này không hề tác động đến hai biến gốc ở hàm main. Sau khi hàm kết thúc, các biến cục bộ bị xóa bỏ, hai biến gốc vẫn trỏ về hai đối tượng cũ như ban đầu.
+
+3. Tại sao sau khi gọi changeTitle(jungleDVD, cinderellaDVD.getTitle()), tiêu đề của JungleDVD lại bị thay đổi?
+Giải thích:
+
+Trong hàm changeTitle(dvd, title), biến dvd là một bản sao tham chiếu trỏ cùng tới một đối tượng jungleDVD trên bộ nhớ Heap.
+
+Lệnh dvd.setTitle(title) sử dụng tham chiếu đó để truy cập trực tiếp vào vùng nhớ của đối tượng và thay đổi dữ liệu thuộc tính title tại đó.
+
+Vì biến gốc jungleDVD ở hàm main cũng đang trỏ vào cùng vùng nhớ này, nên nó "nhìn thấy" sự thay đổi dữ liệu mà hàm đã thực hiện.
+"Trong Java, do cơ chế Pass-by-Value, chúng ta không thể hoán đổi hai biến tham chiếu gốc. Để hoán đổi, chúng ta phải can thiệp vào các thuộc tính bên trong đối tượng thông qua Setter hoặc sử dụng một đối tượng bao ngoài (Wrapper Object)."
+Mẹo trung gian: Thay vì truyền bản sao địa chỉ của viên kẹo (không tráo được), ta truyền bản sao địa chỉ của cái hộp.
+
+Hành động trên Heap: Nhờ cái "bản sao địa chỉ hộp" đó, ta tìm được đến đúng vị trí của cái hộp thật trên bộ nhớ Heap. Tại đây, ta không tráo hai cái hộp, mà ta tráo nội dung bên trong cái hộp đó.
