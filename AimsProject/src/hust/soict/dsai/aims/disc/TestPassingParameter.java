@@ -1,6 +1,6 @@
 package hust.soict.dsai.aims.disc;
 
-import hust.soict.dsai.test.disc.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.DigitalVideoDisc;
 
 class DVDWrapper {
 	DigitalVideoDisc dvd; // Đây là thuộc tính (cái ruột của hộp)
