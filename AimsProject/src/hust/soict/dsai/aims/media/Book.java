@@ -33,9 +33,8 @@ public class Book extends Media {
 
 	@Override
 	public String toString() {
-		return "Book [authors=" + authors + ", getId()=" + getId() + ", getTitle()=" + getTitle() + ", getCategory()="
-				+ getCategory() + ", getCost()=" + getCost() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
+		return "Book - " + this.getTitle() + " - " + this.getCategory() + " - " + authors.toString() + " - "
+				+ this.getCost() + " $";
 	}
 
 }

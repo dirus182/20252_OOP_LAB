@@ -35,7 +35,7 @@ Về các phương thức setter dư thừa:
 Một số setter có thể được xem là không cần thiết nếu toàn bộ dữ liệu đã được khởi tạo thông qua constructor, ví dụ setter cho title, category, cost, director hoặc length. Tuy nhiên trong phạm vi bài lab này, một số setter vẫn được giữ lại để thuận tiện cho việc kiểm thử và cập nhật dữ liệu, đặc biệt là setId(). Trong thiết kế chặt chẽ hơn, các thuộc tính ít thay đổi sau khi tạo đối tượng nên được khởi tạo qua constructor và có thể loại bỏ setter để tránh việc thay đổi dữ liệu tùy tiện.
 
 
-11.
+10.
 Câu hỏi: Nếu đối tượng được truyền vào phương thức equals(Object o) không phải là một instance của Media, điều gì sẽ xảy ra?
 
 Trả lời:
@@ -59,3 +59,29 @@ if (!(o instanceof Media)) {
 Đối với lớp Track, hai đối tượng được xem là bằng nhau nếu cả title và length đều bằng nhau.
 
 Việc ghi đè equals() giúp phương thức contains() trong ArrayList hoạt động đúng theo logic của bài toán. Cụ thể, Cart có thể tránh thêm hai Media có cùng title, và CompactDisc có thể tránh thêm hai Track có cùng title và length.
+
+11.
+Câu hỏi: Tạo một ArrayList chứa các đối tượng Media, thêm một số media như CD, DVD hoặc Book vào danh sách, sau đó lặp qua danh sách và in thông tin bằng phương thức toString(). Quan sát điều gì xảy ra và giải thích chi tiết.
+
+Trả lời:
+
+Trong bài tập này, em tạo một danh sách ArrayList<Media> để lưu nhiều đối tượng media khác nhau. Mặc dù danh sách được khai báo với kiểu Media, nhưng các phần tử thực tế được thêm vào có thể là các lớp con của Media như CompactDisc, DigitalVideoDisc hoặc Book.
+
+Khi lặp qua danh sách bằng câu lệnh:
+
+for (Media m : mediae) {
+    System.out.println(m.toString());
+}
+
+biến m có kiểu khai báo là Media, nhưng đối tượng thật mà m đang tham chiếu có thể là CompactDisc, DigitalVideoDisc hoặc Book. Khi gọi phương thức toString(), Java sẽ không gọi theo kiểu khai báo Media một cách cứng nhắc, mà sẽ gọi phương thức toString() tương ứng với kiểu thực tế của đối tượng tại thời điểm chạy chương trình.
+
+Ví dụ:
+- Nếu phần tử thực tế là CompactDisc, Java gọi CompactDisc.toString().
+- Nếu phần tử thực tế là DigitalVideoDisc, Java gọi DigitalVideoDisc.toString().
+- Nếu phần tử thực tế là Book, Java gọi Book.toString().
+
+Hiện tượng này thể hiện tính đa hình ở cấp độ hành vi. Cùng một lời gọi m.toString(), nhưng kết quả thực thi khác nhau tùy theo class thực tế của object.
+
+Nhờ tính đa hình, chương trình có thể xử lý nhiều loại media khác nhau thông qua kiểu chung Media. Code không cần phải kiểm tra thủ công từng loại đối tượng bằng if/else, ví dụ không cần viết nếu là Book thì in kiểu Book, nếu là DVD thì in kiểu DVD, nếu là CD thì in kiểu CD. Thay vào đó, mỗi lớp con tự định nghĩa cách hiển thị thông tin của mình bằng cách override phương thức toString().
+
+Kết quả quan sát được là danh sách ArrayList<Media> có thể chứa nhiều loại media khác nhau, nhưng khi in ra, mỗi media vẫn hiển thị đúng thông tin riêng của loại đó. Điều này giúp chương trình dễ mở rộng hơn: nếu sau này thêm một loại Media mới, ta chỉ cần override toString() trong lớp mới mà không cần sửa logic duyệt danh sách.

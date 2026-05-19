@@ -47,4 +47,10 @@ public class Track implements Playable {
 	public int hashCode() {
 		return Objects.hash(this.getTitle(), this.getLength());
 	}
+
+	@Override
+	public String toString() {
+		return "Track - " + this.getTitle() + " - " + this.getLength();
+	}
+
 }
