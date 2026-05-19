@@ -1,0 +1,35 @@
+Câu hỏi: Những lớp nào là tập hợp của các lớp khác? Kiểm tra tất cả các hàm tạo của các lớp toàn thể xem chúng có được khởi tạo cho các thành phần của chúng hay không. Viết hàm tạo cho lớp cha và lớp con. Loại bỏ các phương thức setter dư thừa nếu có.
+
+Trả lời:
+
+Trong dự án AIMS hiện tại, các lớp có quan hệ tập hợp với lớp/thành phần khác gồm: Cart, Store, CompactDisc và Book.
+
+1. Lớp Cart là tập hợp của các đối tượng Media.
+Lớp Cart có thuộc tính itemsOrdered kiểu ArrayList<Media>. Điều này cho phép Cart lưu trữ nhiều loại media khác nhau như Book, DigitalVideoDisc và CompactDisc thông qua lớp cha chung Media. Danh sách itemsOrdered đã được khởi tạo bằng new ArrayList<Media>(), vì vậy khi tạo một đối tượng Cart, danh sách này không bị null và có thể dùng trực tiếp trong các phương thức addMedia(), removeMedia() và totalCost().
+
+2. Lớp Store là tập hợp của các đối tượng Media.
+Lớp Store có thuộc tính itemsInStore kiểu ArrayList<Media>. Nhờ đó Store có thể quản lý nhiều loại media khác nhau trong cửa hàng, không chỉ riêng DigitalVideoDisc như các bài lab trước. Danh sách itemsInStore cũng đã được khởi tạo bằng new ArrayList<Media>(), vì vậy các phương thức addMedia() và removeMedia() có thể thao tác trực tiếp với danh sách này.
+
+3. Lớp CompactDisc là tập hợp của các đối tượng Track.
+Lớp CompactDisc có thuộc tính tracks kiểu ArrayList<Track>. Mỗi CompactDisc có thể chứa nhiều Track. Độ dài của CompactDisc không được nhập trực tiếp mà được tính bằng tổng độ dài của tất cả Track trong danh sách tracks. Danh sách tracks đã được khởi tạo bằng new ArrayList<Track>(), do đó các phương thức addTrack(), removeTrack() và getLength() có thể hoạt động an toàn.
+
+4. Lớp Book là tập hợp của các tên tác giả.
+Lớp Book có thuộc tính authors kiểu ArrayList<String>. Danh sách này dùng để lưu tên các tác giả của sách. Danh sách authors đã được khởi tạo bằng new ArrayList<String>(), nên các phương thức addAuthor() và removeAuthor() có thể thao tác trực tiếp mà không gây lỗi null.
+
+Về hàm tạo của lớp cha và lớp con:
+
+- Lớp Media là lớp cha trừu tượng, chứa các thuộc tính chung của mọi loại media gồm id, title, category và cost. Constructor của Media dùng để khởi tạo các thuộc tính chung này.
+
+- Lớp Book kế thừa từ Media. Constructor của Book gọi super(id, title, category, cost) để khởi tạo các thuộc tính chung trong Media. Book chỉ quản lý thêm danh sách authors.
+
+- Lớp Disc kế thừa từ Media. Constructor của Disc gọi super(id, title, category, cost) để khởi tạo các thuộc tính chung trong Media, sau đó khởi tạo thêm director và length là các thuộc tính riêng của Disc.
+
+- Lớp DigitalVideoDisc kế thừa từ Disc. Constructor của DigitalVideoDisc gọi constructor của Disc thông qua super(...), nhờ đó các thuộc tính title, category, cost, director và length được khởi tạo đúng theo chuỗi kế thừa.
+
+- Lớp CompactDisc kế thừa từ Disc. Constructor của CompactDisc gọi super(id, title, category, cost, director, 0) để khởi tạo phần dữ liệu chung. Đối với CompactDisc, length được truyền tạm là 0 vì độ dài thật của CD được tính bằng tổng độ dài của các Track trong danh sách tracks.
+
+- Lớp Track không kế thừa từ Media. Constructor của Track khởi tạo trực tiếp title và length của từng bài hát.
+
+Về các phương thức setter dư thừa:
+
+Một số setter có thể được xem là không cần thiết nếu toàn bộ dữ liệu đã được khởi tạo thông qua constructor, ví dụ setter cho title, category, cost, director hoặc length. Tuy nhiên trong phạm vi bài lab này, một số setter vẫn được giữ lại để thuận tiện cho việc kiểm thử và cập nhật dữ liệu, đặc biệt là setId(). Trong thiết kế chặt chẽ hơn, các thuộc tính ít thay đổi sau khi tạo đối tượng nên được khởi tạo qua constructor và có thể loại bỏ setter để tránh việc thay đổi dữ liệu tùy tiện.
