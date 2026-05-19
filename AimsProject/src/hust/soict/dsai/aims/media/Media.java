@@ -1,5 +1,7 @@
 package hust.soict.dsai.aims.media;
 
+import java.util.Objects;
+
 public abstract class Media {
 	private int id;
 	private String title;
@@ -50,4 +52,22 @@ public abstract class Media {
 		this.cost = cost;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof Media)) {
+			return false;
+		}
+
+		Media other = (Media) obj;
+		return Objects.equals(this.getTitle(), other.getTitle());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.getTitle());
+	}
 }

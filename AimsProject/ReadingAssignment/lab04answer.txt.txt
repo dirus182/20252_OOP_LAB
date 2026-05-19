@@ -33,3 +33,29 @@ Về hàm tạo của lớp cha và lớp con:
 Về các phương thức setter dư thừa:
 
 Một số setter có thể được xem là không cần thiết nếu toàn bộ dữ liệu đã được khởi tạo thông qua constructor, ví dụ setter cho title, category, cost, director hoặc length. Tuy nhiên trong phạm vi bài lab này, một số setter vẫn được giữ lại để thuận tiện cho việc kiểm thử và cập nhật dữ liệu, đặc biệt là setId(). Trong thiết kế chặt chẽ hơn, các thuộc tính ít thay đổi sau khi tạo đối tượng nên được khởi tạo qua constructor và có thể loại bỏ setter để tránh việc thay đổi dữ liệu tùy tiện.
+
+
+11.
+Câu hỏi: Nếu đối tượng được truyền vào phương thức equals(Object o) không phải là một instance của Media, điều gì sẽ xảy ra?
+
+Trả lời:
+
+Khi ghi đè phương thức equals(Object o), tham số truyền vào có kiểu Object nên có thể là bất kỳ đối tượng nào. Nếu ta ép kiểu trực tiếp từ Object sang Media mà không kiểm tra kiểu trước, ví dụ:
+
+Media other = (Media) o;
+
+thì nếu o không phải là một instance của Media, chương trình sẽ phát sinh lỗi ClassCastException tại runtime.
+
+Vì vậy, trước khi ép kiểu, cần kiểm tra bằng instanceof:
+
+if (!(o instanceof Media)) {
+    return false;
+}
+
+Điều này có nghĩa là nếu đối tượng truyền vào không phải Media thì nó chắc chắn không thể bằng một đối tượng Media, nên phương thức equals() trả về false. Sau khi kiểm tra kiểu an toàn, ta mới ép kiểu Object sang Media và so sánh title.
+
+Đối với lớp Media, hai đối tượng được xem là bằng nhau nếu title của chúng bằng nhau.
+
+Đối với lớp Track, hai đối tượng được xem là bằng nhau nếu cả title và length đều bằng nhau.
+
+Việc ghi đè equals() giúp phương thức contains() trong ArrayList hoạt động đúng theo logic của bài toán. Cụ thể, Cart có thể tránh thêm hai Media có cùng title, và CompactDisc có thể tránh thêm hai Track có cùng title và length.
