@@ -85,3 +85,20 @@ Hiện tượng này thể hiện tính đa hình ở cấp độ hành vi. Cùn
 Nhờ tính đa hình, chương trình có thể xử lý nhiều loại media khác nhau thông qua kiểu chung Media. Code không cần phải kiểm tra thủ công từng loại đối tượng bằng if/else, ví dụ không cần viết nếu là Book thì in kiểu Book, nếu là DVD thì in kiểu DVD, nếu là CD thì in kiểu CD. Thay vào đó, mỗi lớp con tự định nghĩa cách hiển thị thông tin của mình bằng cách override phương thức toString().
 
 Kết quả quan sát được là danh sách ArrayList<Media> có thể chứa nhiều loại media khác nhau, nhưng khi in ra, mỗi media vẫn hiển thị đúng thông tin riêng của loại đó. Điều này giúp chương trình dễ mở rộng hơn: nếu sau này thêm một loại Media mới, ta chỉ cần override toString() trong lớp mới mà không cần sửa logic duyệt danh sách.
+
+12.
+Câu hỏi: Nếu dùng Comparable thay vì Comparator để so sánh các item trong cart thì lớp nào nên triển khai Comparable? Cần triển khai compareTo() như thế nào? Có thể có hai quy tắc sắp xếp khác nhau không? Nếu DVD có quy tắc sắp xếp khác thì sửa code thế nào?
+
+Trả lời:
+
+Nếu sử dụng Comparable, lớp Media nên triển khai Comparable<Media>, vì các đối tượng cần được sắp xếp trong Cart đều là Media hoặc lớp con của Media như Book, DigitalVideoDisc và CompactDisc.
+
+Khi đó, trong lớp Media có thể cài đặt phương thức compareTo(Media other) để định nghĩa một thứ tự sắp xếp mặc định. Ví dụ, nếu chọn quy tắc mặc định là sắp xếp theo title rồi đến cost, compareTo() có thể so sánh title theo thứ tự alphabet trước. Nếu title giống nhau thì tiếp tục so sánh cost theo thứ tự giảm dần, tức media có cost cao hơn đứng trước.
+
+Tuy nhiên, Comparable chỉ phù hợp khi class có một thứ tự sắp xếp tự nhiên duy nhất. Nếu hệ thống cần nhiều quy tắc sắp xếp khác nhau, ví dụ vừa cần sắp xếp theo title rồi cost, vừa cần sắp xếp theo cost rồi title, thì Comparable không linh hoạt bằng Comparator.
+
+Với Comparator, ta có thể tạo nhiều lớp so sánh khác nhau, ví dụ MediaComparatorByTitleCost và MediaComparatorByCostTitle. Mỗi Comparator biểu diễn một quy tắc sắp xếp riêng và có thể truyền vào Collections.sort() tùy theo nhu cầu. Vì vậy, Comparator phù hợp hơn trong bài này.
+
+Nếu DVD có quy tắc sắp xếp khác với các loại Media khác, ví dụ sắp xếp theo title, sau đó length giảm dần, sau đó cost, ta có thể tạo thêm một Comparator riêng cho DVD, ví dụ DVDComparatorByTitleLengthCost. Một cách khác là tạo Comparator<Media> có kiểm tra kiểu đối tượng bằng instanceof DigitalVideoDisc, sau đó ép kiểu sang DigitalVideoDisc để lấy length khi cần. Tuy nhiên, cách tạo Comparator riêng sẽ rõ ràng và dễ bảo trì hơn.
+
+Kết luận: Trong bài AIMS, nên dùng Comparator thay vì Comparable vì hệ thống cần nhiều quy tắc sắp xếp khác nhau cho cùng một nhóm đối tượng Media.
