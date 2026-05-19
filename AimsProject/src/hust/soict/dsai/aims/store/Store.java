@@ -1,37 +1,43 @@
 package hust.soict.dsai.aims.store;
 
-import hust.soict.dsai.aims.media.DigitalVideoDisc;
+import java.util.ArrayList;
+
+import hust.soict.dsai.aims.media.Media;
 
 public class Store {
-	private DigitalVideoDisc itemsInStore[] = new DigitalVideoDisc[100];
-	private int qtyInStore = 0; // Số lượng DVD hiện có trong kho
+	private ArrayList<Media> itemsInStore = new ArrayList<Media>();
 
-	// Phương thức thêm DVD vào kho
-	public void addDVD(DigitalVideoDisc dvd) {
-		if (qtyInStore < 100) {
-			itemsInStore[qtyInStore] = dvd;
-			qtyInStore++;
-			System.out.println("The DVD " + dvd.getTitle() + " has been added to the store.");
+	public void addMedia(Media media) {
+		if (!itemsInStore.contains(media)) {
+			itemsInStore.add(media);
+			System.out.println("The media " + media.getTitle() + " has been added to the store.");
 		} else {
-			System.out.println("The store is almost full!");
+			System.out.println("The media already exists in the store.");
 		}
 	}
 
-	// Phương thức xóa DVD khỏi kho
-
-	public void removeDVD(DigitalVideoDisc dvd) {
-		for (int i = 0; i < qtyInStore; i++) {
-			if (itemsInStore[i].equals(dvd)) {
-				// Dịch chuyển các phần tử phía sau lên để lấp chỗ trống
-				for (int j = i; j < qtyInStore - 1; j++) {
-					itemsInStore[j] = itemsInStore[j + 1];
-				}
-				itemsInStore[qtyInStore - 1] = null;
-				qtyInStore--;
-				System.out.println("The DVD " + dvd.getTitle() + " has been removed from the store.");
-				return;
-			}
+	public void removeMedia(Media media) {
+		if (itemsInStore.contains(media)) {
+			itemsInStore.remove(media);
+			System.out.println("The media " + media.getTitle() + " has been removed from the store.");
+		} else {
+			System.out.println("The media was not found in the store.");
 		}
-		System.out.println("The DVD was not found in the store.");
+	}
+
+	public void print() {
+		System.out.println("***********************STORE***********************");
+		System.out.println("Items in store:");
+
+		for (int i = 0; i < itemsInStore.size(); i++) {
+			Media media = itemsInStore.get(i);
+			System.out.println((i + 1) + ". " + media.toString());
+		}
+
+		System.out.println("***************************************************");
+	}
+
+	public ArrayList<Media> getItemsInStore() {
+		return itemsInStore;
 	}
 }

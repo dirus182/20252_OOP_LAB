@@ -12,11 +12,17 @@ public class StoreTest {
 		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladdin");
 
 		// Test thêm vào kho
-		store.addDVD(dvd1);
-		store.addDVD(dvd2);
-		store.addDVD(dvd3);
+		store.addMedia(dvd1);
+		store.addMedia(dvd2);
+		store.addMedia(dvd3);
+
+		// In store để kiểm tra
+		store.print();
 
 		// Test xóa khỏi kho
-		store.removeDVD(dvd2);
+		store.removeMedia(dvd2);
+
+		// In lại sau khi xóa
+		store.print();
 	}
 }
