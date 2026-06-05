@@ -19,6 +19,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.media.Book;
 import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
@@ -31,16 +32,19 @@ import hust.soict.dsai.aims.store.Store;
 // 2. Phần giữa : danh sách các media trong store
 public class StoreScreen extends JFrame {
 	private Store store;
+	private Cart cart; // thêm field
 
-	public StoreScreen(Store store) {
+	public StoreScreen(Store store, Cart cart) {
 		this.store = store;
+		this.cart = cart; // gán cart
 
 		Container cp = getContentPane();
 		cp.setLayout(new BorderLayout());
 
 		cp.add(createNorth(), BorderLayout.NORTH);
 		cp.add(createCenter(), BorderLayout.CENTER);
-
+		JButton cartBtn = new JButton("View cart");
+		cartBtn.addActionListener(e -> new CartScreen(cart));
 		setTitle("Store");
 		setSize(1024, 768);
 		setLocationRelativeTo(null);
@@ -107,7 +111,7 @@ public class StoreScreen extends JFrame {
 		ArrayList<Media> mediaInStore = store.getItemsInStore();
 
 		for (int i = 0; i < mediaInStore.size() && i < 9; i++) {
-			MediaStore cell = new MediaStore(mediaInStore.get(i));
+			MediaStore cell = new MediaStore(mediaInStore.get(i), cart);
 			center.add(cell);
 		}
 
@@ -116,7 +120,7 @@ public class StoreScreen extends JFrame {
 
 	public static void main(String[] args) {
 		Store store = new Store();
-
+		Cart cart = new Cart(); // tạo cart ở đây
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
 
@@ -132,6 +136,6 @@ public class StoreScreen extends JFrame {
 		store.addMedia(book1);
 		store.addMedia(cd1);
 
-		new StoreScreen(store);
+		new StoreScreen(store, cart);
 	}
 }

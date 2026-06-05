@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -11,15 +13,17 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.Playable;
 
 public class MediaStore extends JPanel {
 	private Media media;
+	private Cart cart;
 
-	public MediaStore(Media media) {
+	public MediaStore(Media media, Cart cart) {
 		this.media = media;
-
+		this.cart = cart; // gán
 		this.setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
 		JLabel title = new JLabel(media.getTitle());
@@ -32,11 +36,24 @@ public class MediaStore extends JPanel {
 		JPanel container = new JPanel();
 		container.setLayout(new FlowLayout(FlowLayout.CENTER));
 
+		// Nút Add to Cart
 		JButton btnAddToCart = new JButton("Add to cart");
-		container.add(btnAddToCart);
-
+		btnAddToCart.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cart.addMedia(media);
+				System.out.println(media.getTitle() + " added to cart.");
+			}
+		});
+		// Nút Play nếu media implement Playable
 		if (media instanceof Playable) {
 			JButton btnPlay = new JButton("Play");
+			btnPlay.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					((Playable) media).play();
+				}
+			});
 			container.add(btnPlay);
 		}
 
