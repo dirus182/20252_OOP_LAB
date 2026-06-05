@@ -3,6 +3,7 @@ package hust.soict.dsai.aims;
 import java.util.Scanner;
 
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.Book;
 import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
@@ -406,7 +407,13 @@ public class Aims {
 
 	private static void playMedia(Media media) {
 		if (media instanceof Playable) {
-			((Playable) media).play();
+			try {
+				((Playable) media).play();
+			} catch (PlayerException e) {
+				System.err.println(e.getMessage());
+				System.err.println(e.toString());
+				e.printStackTrace();
+			}
 		} else {
 			System.out.println("This media cannot be played.");
 		}

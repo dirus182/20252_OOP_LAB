@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import hust.soict.dsai.aims.media.Media;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Cart {
-	private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
+	private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
 
 	public void addMedia(Media media) {
 		if (!itemsOrdered.contains(media)) {
@@ -84,7 +86,7 @@ public class Cart {
 		return itemsOrdered.size();
 	}
 
-	public ArrayList<Media> getItemsOrdered() {
+	public ObservableList<Media> getItemsOrdered() {
 		return itemsOrdered;
 	}
 

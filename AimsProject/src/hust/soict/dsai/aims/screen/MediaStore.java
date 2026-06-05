@@ -11,9 +11,12 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.PlayerException;
+import hust.soict.dsai.aims.media.Disc;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.Playable;
 
@@ -42,16 +45,24 @@ public class MediaStore extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				cart.addMedia(media);
-				System.out.println(media.getTitle() + " added to cart.");
+				JOptionPane.showMessageDialog(MediaStore.this, media.getTitle() + " added to cart.");
 			}
 		});
+		container.add(btnAddToCart);
 		// Nút Play nếu media implement Playable
 		if (media instanceof Playable) {
 			JButton btnPlay = new JButton("Play");
 			btnPlay.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					((Playable) media).play();
+					try {
+						((Playable) media).play();
+						JOptionPane.showMessageDialog(MediaStore.this,
+								"Playing " + media.getTitle() + "\nLength: " + getPlayableLength());
+					} catch (PlayerException ex) {
+						JOptionPane.showMessageDialog(MediaStore.this, ex.getMessage(), "Cannot play",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			});
 			container.add(btnPlay);
@@ -66,5 +77,12 @@ public class MediaStore extends JPanel {
 
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		this.setPreferredSize(new Dimension(200, 150));
+	}
+
+	private String getPlayableLength() {
+		if (media instanceof Disc) {
+			return ((Disc) media).getLength() + " minutes";
+		}
+		return "N/A";
 	}
 }

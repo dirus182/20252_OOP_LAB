@@ -2,6 +2,7 @@ package hust.soict.dsai.test.media;
 
 import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.Track;
+import hust.soict.dsai.aims.exception.PlayerException;
 
 public class CompactDiscTest {
 	public static void main(String[] args) {
@@ -16,6 +17,10 @@ public class CompactDiscTest {
 		cd.addTrack(track3);
 
 		System.out.println("CD length: " + cd.getLength());
-		cd.play();
+		try {
+			cd.play();
+		} catch (PlayerException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 }

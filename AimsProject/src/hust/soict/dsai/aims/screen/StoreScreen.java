@@ -43,8 +43,6 @@ public class StoreScreen extends JFrame {
 
 		cp.add(createNorth(), BorderLayout.NORTH);
 		cp.add(createCenter(), BorderLayout.CENTER);
-		JButton cartBtn = new JButton("View cart");
-		cartBtn.addActionListener(e -> new CartScreen(cart));
 		setTitle("Store");
 		setSize(1024, 768);
 		setLocationRelativeTo(null);
@@ -67,14 +65,34 @@ public class StoreScreen extends JFrame {
 		JMenuItem addBook = new JMenuItem("Add Book");
 		JMenuItem addCD = new JMenuItem("Add CD");
 		JMenuItem addDVD = new JMenuItem("Add DVD");
+		JMenuItem viewStore = new JMenuItem("View store");
+		JMenuItem viewCart = new JMenuItem("View cart");
+
+		addBook.addActionListener(e -> {
+			dispose();
+			new AddBookToStoreScreen(store, cart);
+		});
+		addCD.addActionListener(e -> {
+			dispose();
+			new AddCompactDiscToStoreScreen(store, cart);
+		});
+		addDVD.addActionListener(e -> {
+			dispose();
+			new AddDigitalVideoDiscToStoreScreen(store, cart);
+		});
+		viewStore.addActionListener(e -> {
+			dispose();
+			new StoreScreen(store, cart);
+		});
+		viewCart.addActionListener(e -> new CartScreen(cart));
 
 		smUpdateStore.add(addBook);
 		smUpdateStore.add(addCD);
 		smUpdateStore.add(addDVD);
 
 		menu.add(smUpdateStore);
-		menu.add(new JMenuItem("View store"));
-		menu.add(new JMenuItem("View cart"));
+		menu.add(viewStore);
+		menu.add(viewCart);
 
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -94,6 +112,7 @@ public class StoreScreen extends JFrame {
 		JButton cart = new JButton("View cart");
 		cart.setPreferredSize(new Dimension(100, 50));
 		cart.setMaximumSize(new Dimension(100, 50));
+		cart.addActionListener(e -> new CartScreen(this.cart));
 
 		header.add(Box.createRigidArea(new Dimension(10, 10)));
 		header.add(title);

@@ -28,3 +28,40 @@ Hành động trên Heap: Nhờ cái "bản sao địa chỉ hộp" đó, ta tì
 Chốt lại, JAVA luôn truyền pass-by-value
 
 
+
+
+================ LAB 05 ANSWERS ================
+
+1. Compare Swing and AWT elements
+Answer:
+- AWT uses heavyweight components that depend more directly on the native operating system UI toolkit. Swing uses lightweight components written mostly in Java.
+- AWT top-level container is Frame, while Swing top-level container is JFrame.
+- AWT components are Label, TextField, Button, Panel. The corresponding Swing components are JLabel, JTextField, JButton, JPanel.
+- In Swing, components should be added to the content pane of a JFrame instead of directly to the top-level container.
+- Swing provides richer, more flexible components and supports pluggable look and feel.
+
+2. NumberGrid ButtonListener
+Answer:
+- If a digit button is pressed, append that digit to the display text field.
+- If the DEL button is pressed, remove the last character only when the display is not empty.
+- If the C button is pressed, clear the whole display text field.
+
+3. Painter eraser feature
+Answer:
+The eraser can be implemented like the pen. The difference is that the eraser draws small white circles, which have the same color as the drawing pane background. RadioButton controls in the same ToggleGroup are used so the user can select either Pen or Eraser.
+
+4. Why should Cart use ObservableList for TableView?
+Answer:
+TableView observes ObservableList changes. When items are added to or removed from the cart, the TableView can update its displayed rows automatically. A normal ArrayList does not notify JavaFX controls about changes.
+
+5. What happens when Aims is not updated to catch PlayerException?
+Answer:
+PlayerException is a checked exception because it extends Exception. If play() declares throws PlayerException and Aims does not catch or delegate it, the program will not compile. All calls to play() must be placed inside try-catch blocks or the calling method must also declare throws PlayerException.
+
+6. PlayerException usage
+Answer:
+PlayerException is raised when a playable media has invalid length. DigitalVideoDisc.play() and Track.play() throw PlayerException when length is less than or equal to zero. CompactDisc.play() also checks the CD length and handles exceptions from each Track.
+
+7. Media equals() rule
+Answer:
+Two Media objects are considered equal when they have the same title. The implementation should first check whether the object is a Media instance to avoid ClassCastException, and should compare titles in a null-safe way to avoid NullPointerException.
